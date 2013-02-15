@@ -17,7 +17,8 @@ energy.test <- function (x, R=50) {
   }
   p <- 1 - mean(bootobj$t < bootobj$t0)
   names(bootobj$t0) <- "E-statistic"
-  e <- list(statistic = bootobj$t0, p.value = p, method = "Energy test of multivariate normality: estimated parameters", 
+  e <- list(statistic = bootobj$t0, p.value = p, method = "Energy test of 
+  		  multivariate normality: estimated parameters", 
             data.name = paste("x, sample size ", n, ", dimension ", 
                               d, ", replicates ", R, sep = ""))
   class(e) <- "htest"
