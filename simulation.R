@@ -8,7 +8,7 @@ simulation <- function (sample.size) {
 	
 	
 	# generate random number
-	kTimes <- 100
+	kTimes <- 5
 	set.seed(kTimes)
 	x <- unlist(replicate(n=kTimes, 
 						  expr=list(rlnorm(sample.size), 
@@ -18,7 +18,7 @@ simulation <- function (sample.size) {
 						  simplify=F), 
 				recursive=F)
 	# use simplify and recursive to make an organized list
-	
+
 	# load johnson source functions
 	source('johnson_transform.R')
 	res <- do.call(rbind, lapply(x, johnsonTransform, test))
@@ -30,7 +30,9 @@ simulation <- function (sample.size) {
 	return(res)
 }
 
-
-
+size <- c(10, 15, 20, 25, 30, 40, 50, 100, 200, 300, 400, 
+		  500, 1000, 1500, 2000, 5000, 10000)
+require(parallel)
+res <- do.call(rbind, mclapply(size, simulation))
 
 
