@@ -1,4 +1,4 @@
-energy.test <- function (x, R=50) {
+energy.test <- function (x, R=99) {
   if (is.vector(x)) {
     n <- length(x)
     d <- 1
