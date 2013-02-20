@@ -1,5 +1,13 @@
 johnsonTransform <- function(x, test="shapiro.test") {
 	res <- data.frame()
+	# test the original dataset for normality
+	for (t in test) {
+		p.value <- do.call(t, list(x))$p.value
+		d <- data.frame(test=t, p.value, z=NA_real_, type=NA_character_)
+		res <- rbind(res, d)
+	}
+	
+	# test for transformed dataset corresponding to 100 z value
 	for (z in seq(from=0.26, to=1.25, by=0.01)) {
 		q <- getQuantiles(x, z)
 		
