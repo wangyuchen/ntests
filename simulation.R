@@ -17,16 +17,16 @@ rng <- function(size) {
 simulation <- function (size) {
 	require(moments)
 	require(nortest)
-	# 	require(energy)
-	# 	source("energy_test.R")  # set replicate to 50 times for efficiency
-	test <- c("shapiro.test", "ad.test", "cvm.test",
+	require(energy)
+	source("energy_test.R")  # set replicate to 50 times for efficiency
+	test <- c("shapiro.test", "ad.test", "energy.test" "cvm.test",
 			  "lillie.test", "pearson.test", "sf.test", "jarque.test")
 	
 	x <- rng(size)
 	# load johnson source functions
 	require(parallel)
 	source('johnson_transform.R')
-	res <- do.call(rbind, mclapply(x, johnsonTransform, test, mc.cores=4))
+	res <- do.call(rbind, mclapply(x, johnsonTransform, test))
 	return(res)
 	dist <- rep(c("Log-normal", "Gamma", "Uniform", "t"), times=length(test))
 	
