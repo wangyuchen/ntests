@@ -18,11 +18,12 @@ simulation <- function (size) {
 	require(moments)
 	require(nortest)
 	require(energy)
-	source("energy_test.R")  # set replicate to 50 times for efficiency
-	test <- c("shapiro.test", "ad.test", "energy.test" "cvm.test",
+	source("energy_test.R")  # set replicate to 99 times for efficiency
+	test <- c("shapiro.test", "ad.test", "energy.test", "cvm.test",
 			  "lillie.test", "pearson.test", "sf.test", "jarque.test")
 	
 	x <- rng(size)
+	
 	# load johnson source functions
 	require(parallel)
 	source('johnson_transform.R')
