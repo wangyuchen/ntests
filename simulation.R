@@ -25,10 +25,16 @@ simulation <- function (size) {
 	x <- rng(size)
 	
 	# load johnson source functions
-	require(parallel)
 	source('johnson_transform.R')
-	res <- do.call(rbind, mclapply(x, johnsonTransform, test))
-	return(res)
+	
+	res <- data.frame()
+	cat(paste("Currently simulation for sample size:", size, "\n"))
+	pb <- txtProgressBar(min = 0, max = length(x), style=3)
+	for (i in 1:length(x)) {
+		res <- rbind(res, johnsonTransform(x[[i]], test))
+		setTxtProgressBar(pb, i)
+	}
+	
 	dist <- rep(c("Log-normal", "Gamma", "Uniform", "t"), times=length(test))
 	
 	res <- cbind(size, dist, res)
@@ -40,10 +46,7 @@ simulation <- function (size) {
 size <- c(10, 15, 20, 25, 30, 40, 50, 100, 200, 300, 400, 
 		  500, 1000, 1500, 2000, 5000)
 res <- data.frame()
-pb <- txtProgressBar(min = 0, max = length(size), style=3)
 for (i in 1:length(size)) {
 	d <- cbind(size=size[i], simulation(size[i]))
 	res <- rbind(res, d)
-	setTxtProgressBar(pb, i)
 }
-
