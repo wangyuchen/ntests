@@ -3,3 +3,5 @@
 .RData
 .DS_Store
 data/
+article/
+res.csv
